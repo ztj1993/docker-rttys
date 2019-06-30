@@ -1,0 +1,37 @@
+FROM alpine
+
+LABEL maintainer="Ztj <ztj1993@gmail.com>"
+
+ENV RTTYS_USERNAME="admin"
+ENV RTTYS_PASSWORD="admin"
+ENV RTTYS_TOKEN=""
+
+ARG RTTYS_VERSION="2.10.2"
+ARG RTTYS_RELEASE="3129765"
+ARG RTTYS_CHECKSUM="478391985873294435f7f1b100cd9ebc7a441bdce0cbb2a58fcbf329da6ff661"
+
+EXPOSE 5912
+
+ADD https://github.com/zhaojh329/rttys/files/${RTTYS_RELEASE}/rttys-linux-amd64.tar.gz /tmp/rttys.tar.gz
+
+RUN if [ "${RTTYS_TOKEN}" == "" ]; then RTTYS_TOKEN=$(date +%s%N | md5sum | head -c 32); fi \
+  && echo "Username: ${RTTYS_USERNAME}" \
+  && echo "Password: ${RTTYS_USERNAME}" \
+  && echo "Token: ${RTTYS_TOKEN}" \
+  && echo "Version: ${RTTYS_VERSION}" \
+  && echo "Release: ${RTTYS_RELEASE}" \
+  && echo "CheckSum: ${RTTYS_CHECKSUM}" \
+  && if [ "${RTTYS_CHECKSUM}" != "$(sha256sum /tmp/rttys.tar.gz | awk '{print $1}')" ]; then exit 1; fi \
+  && rm -rf /rttys \
+  && mkdir /rttys \
+  && tar -zxf /tmp/rttys.tar.gz -C /rttys --strip-components 1 \
+  && sed -i "s@^#addr.*@addr: :5912@" /rttys/rttys.conf \
+  && sed -i "s@^#username.*@username: ${RTTYS_USERNAME}@" /rttys/rttys.conf \
+  && sed -i "s@^#password.*@password: ${RTTYS_PASSWORD}@" /rttys/rttys.conf \
+  && sed -i "s@^#ssl-cert.*@ssl-cert: rttys.crt@" /rttys/rttys.conf \
+  && sed -i "s@^#ssl-key.*@ssl-key: rttys.key@" /rttys/rttys.conf \
+  && sed -i "s@^#token.*@token: ${RTTYS_TOKEN}@" /rttys/rttys.conf
+
+WORKDIR /rttys
+
+ENTRYPOINT ["/rttys/rttys"]
