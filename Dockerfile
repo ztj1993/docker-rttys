@@ -25,6 +25,7 @@ RUN if [ "${RTTYS_TOKEN}" == "" ]; then RTTYS_TOKEN=$(date +%s%N | md5sum | head
   && rm -rf /rttys \
   && mkdir /rttys \
   && tar -zxf /tmp/rttys.tar.gz -C /rttys --strip-components 1 \
+  && rm -rf /tmp/rttys.tar.gz \
   && sed -i "s@^#addr.*@addr: :5912@" /rttys/rttys.conf \
   && sed -i "s@^#username.*@username: ${RTTYS_USERNAME}@" /rttys/rttys.conf \
   && sed -i "s@^#password.*@password: ${RTTYS_PASSWORD}@" /rttys/rttys.conf \
