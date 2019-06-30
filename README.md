@@ -5,7 +5,7 @@
 
 ## 简要说明
 
-这个镜像主要构建了 [zhaojh329/rttys](https://github.com/zhaojh329/rttys) 服务。
+这个镜像构建了 [zhaojh329/rttys](https://github.com/zhaojh329/rttys) 服务。
 
 发布版本号会跟随服务版本号。
 
@@ -35,17 +35,17 @@ services:
       - /etc/localtime:/etc/localtime:ro
 ```
 
-以上应该输出：
+以上正确输出类似：
 ```
-INFO[0000] Go Version: go1.12.4
-INFO[0000] Go OS/Arch: linux/amd64
-INFO[0000] Rttys Version: 2.10.2
-INFO[0000] Git Commit: c5ee722
-INFO[0000] Build Time: 2019-04-30T10:30:37+0800 
-INFO[0000] Listen on: :5912 SSL on
+Go Version: go1.12.4
+Go OS/Arch: linux/amd64
+Rttys Version: 2.10.2
+Git Commit: c5ee722
+Build Time: 2019-04-30T10:30:37+0800 
+Listen on: :5912 SSL on
 ```
 
-如果存在错误，请通过 [Issue](https://github.com/ztj1993/docker-rttys/issues) 反馈。
+如果存在错误程序会退出，请通过 [Issue](https://github.com/ztj1993/docker-rttys/issues) 反馈。
 
 ## 环境变量
 
