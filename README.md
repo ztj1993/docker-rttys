@@ -29,6 +29,10 @@ services:
     image: ztj1993/rttys:2.10.2
     ports:
       - 5912:5912
+    environment:
+      RTTYS_USERNAME: admin
+      RTTYS_PASSWORD: admin
+      RTTYS_TOKEN: a1d4cdb1a3cd6a0e94aa3599afcddcf5
     volumes:
       - /rttys/rttys.crt:/rttys/rttys.crt
       - /rttys/rttys.key:/rttys/rttys.key
