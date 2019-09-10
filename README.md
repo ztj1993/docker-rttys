@@ -1,6 +1,6 @@
 # ztj1993/rttys
 
-- 最后发布版本：2.10.2
+- 最后发布版本：2.10.3
 - [Docker Hub](https://hub.docker.com/r/ztj1993/rttys)
 
 ## 简要说明
@@ -13,12 +13,12 @@
 
 运行 rttys 镜像：
 ```
-docker run -d --name rttys ztj1993/rttys:2.10.2
+docker run -d --name rttys ztj1993/rttys
 ```
 
 映射端口：
 ```
-docker run  -d --name rttys -p 5912:5912 ztj1993/rttys:2.10.2
+docker run  -d --name rttys -p 5912:5912 ztj1993/rttys
 ```
 
 docker compose：
@@ -26,7 +26,7 @@ docker compose：
 version: '2'
 services:
   rttys:
-    image: ztj1993/rttys:2.10.2
+    image: ztj1993/rttys
     ports:
       - 5912:5912
     environment:
