@@ -34,8 +34,8 @@ services:
       RTTYS_PASSWORD: admin
       RTTYS_TOKEN: a1d4cdb1a3cd6a0e94aa3599afcddcf5
     volumes:
-      - /rttys/rttys.crt:/rttys/rttys.crt
-      - /rttys/rttys.key:/rttys/rttys.key
+      - /rttys/rttys.crt:/etc/rttys.crt
+      - /rttys/rttys.key:/etc/rttys.key
       - /etc/localtime:/etc/localtime:ro
 ```
 

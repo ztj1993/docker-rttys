@@ -6,11 +6,11 @@ ENV RTTYS_USERNAME="admin"
 ENV RTTYS_PASSWORD="admin"
 ENV RTTYS_TOKEN=""
 
-ARG RTTYS_VERSION="2.10.3"
-ARG RTTYS_RELEASE="3495203"
-ARG RTTYS_CHECKSUM="43e0dd166d82d8d8b0bcc80f957b7d048e8202643dbc83a9397c96db2492686e"
+ARG RTTYS_VERSION="3.1.1"
+ARG RTTYS_RELEASE="4192264"
+ARG RTTYS_CHECKSUM="2cbf983c05b19f4c16a81902e82b797c87ab57faa0a6db219049b4b3462f731a"
 
-EXPOSE 5912
+EXPOSE 5912 5913
 
 ADD https://github.com/zhaojh329/rttys/files/${RTTYS_RELEASE}/rttys-linux-amd64.tar.gz /tmp/rttys.tar.gz
 
@@ -26,12 +26,9 @@ RUN if [ "${RTTYS_TOKEN}" == "" ]; then RTTYS_TOKEN=$(date +%s%N | md5sum | head
   && mkdir /rttys \
   && tar -zxf /tmp/rttys.tar.gz -C /rttys --strip-components 1 \
   && rm -rf /tmp/rttys.tar.gz \
-  && sed -i "s@^#addr.*@addr: :5912@" /rttys/rttys.conf \
-  && sed -i "s@^#username.*@username: ${RTTYS_USERNAME}@" /rttys/rttys.conf \
-  && sed -i "s@^#password.*@password: ${RTTYS_PASSWORD}@" /rttys/rttys.conf \
-  && sed -i "s@^#ssl-cert.*@ssl-cert: rttys.crt@" /rttys/rttys.conf \
-  && sed -i "s@^#ssl-key.*@ssl-key: rttys.key@" /rttys/rttys.conf \
-  && sed -i "s@^#token.*@token: ${RTTYS_TOKEN}@" /rttys/rttys.conf
+  && echo "http-username: ${RTTYS_USERNAME}" > /rttys/rttys.conf \
+  && echo "http-password: ${RTTYS_PASSWORD}" >> /rttys/rttys.conf \
+  && echo "token: ${RTTYS_TOKEN}" >> /rttys/rttys.conf
 
 WORKDIR /rttys
 
