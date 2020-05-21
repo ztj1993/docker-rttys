@@ -1,6 +1,6 @@
 # ztj1993/rttys
 
-- 最后发布版本：3.1.1
+- 最后发布版本：3.1.3
 - [Docker Hub](https://hub.docker.com/r/ztj1993/rttys)
 
 ## 简要说明
